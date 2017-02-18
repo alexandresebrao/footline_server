@@ -1,0 +1,280 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Narrow Jumbotron Template for Bootstrap</title>
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/theme.css'%}" rel="stylesheet">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="#">Incio</a></li>
+            <li role="presentation"><a href="#">Sobre</a></li>
+          </ul>
+        </nav>
+        <h3 class="text">FootLine</h3>
+      </div>
+<div class="row marketing" >
+  <div class="form-horizontal" id="login">
+    <fieldset>
+      <legend>Bem vindo</legend>
+      <div class="form-group">
+        <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+        <div class="col-lg-10">
+          <input type="text" class="form-control" id="txtLoginEmail" placeholder="Apelido ou Email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="col-lg-2 control-label">Senha</label>
+        <div class="col-lg-10">
+          <input type="password" class="form-control" id="txtLoginPassword" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <input type="button" id="btnSignUp" class="btn btn-default" value="Criar Conta" />
+          <input type="button" id="btnLogin"  class="btn btn-primary" value="Entrar" />
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+
+
+
+  <div class="form-horizontal" id="cadastro" hidden>
+    <fieldset>
+      <div id="alertCodeError" class="alert alert-danger" hidden>
+        <h4>Error!</h4>
+        <p>Não é valido o código</p>
+      </div>
+    <div class="form-group">
+      <label for="txtCode" class="col-lg-2 control-label">Token:</label>
+      <div class="col-lg-10">
+        <input type="text" class="form-control" id="txtCode" placeholder="Convite para cadastro">
+      </div>
+    </div>
+    <div class="form-group" id="validTokenBtn">
+      <div class="col-lg-10 col-lg-offset-2">
+        <input type="button" id="btnBack" class="btn btn-default" value="Voltar" />
+        <input type="button" id="btnValidateSignup"  class="btn btn-primary" value="Cadastrar" />
+      </div>
+
+    </div>
+    <div id="alertRegister" class="alert alert-danger" hidden>
+      <h4>Error!</h4>
+      <p id="alertRegister10000" hidden>Nome de usuário já registrado</p>
+      <p id="alertRegister10001" hidden>Email já cadastrado</p>
+      <p id="alertRegister10002" hidden>Token inválido</p>
+      <p id="alertRegister10003" hidden>Cadastro desativado</p>
+      <p id="999" hidden>Senhas não verificam</p>
+    </div>
+
+
+    <div id="alertPassword" class="alert alert-danger" hidden>
+      <h4>Error!</h4>
+      <p>Senha e Confirmar senha não são identicos</p>
+    </div>
+
+    <div id="finishSignup" class="row marketing" hidden>
+      <div id="divUsername" class="form-group">
+        <label for="txtUsername" class="col-lg-2 control-label">Apelido:</label>
+        <div class="col-lg-10">
+          <input type="text" class="form-control" id="txtUsername" placeholder="Apelido">
+        </div>
+      </div>
+      <div id="divEmail" class="form-group">
+        <label for="txtEmail" class="col-lg-2 control-label">Email:</label>
+        <div class="col-lg-10">
+          <input type="text" class="form-control" id="txtEmail" placeholder="Email">
+        </div>
+      </div>
+      <div id="divPassword" class="form-group">
+        <label for="txtPassword" class="col-lg-2 control-label">Senha:</label>
+        <div class="col-lg-10">
+          <input type="password" class="form-control" id="txtPassword" placeholder="Senha">
+        </div>
+      </div>
+      <div id="divCPassword" class="form-group">
+        <label for="txtCPassword" class="col-lg-2 control-label">Confirmar Senha:</label>
+        <div class="col-lg-10">
+          <input type="password" class="form-control" id="txtCPassword" placeholder="Confirmar senha">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <input type="button" id="btnFinishSignup"  class="btn btn-primary" value="Cadastrar" />
+        </div>
+      </div>
+    </div>
+  </div>
+  </fieldset>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2016 Company, Inc.</p>
+  </footer>
+
+</div> <!-- /container -->
+
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+$("#btnSignUp").click(function (){
+  $('#login').fadeOut('slow', function() {
+      $('#cadastro').fadeIn('slow');
+  });
+});
+
+$("#btnBack").click(function (){
+  $('#cadastro').fadeOut('slow', function() {
+      $('#login').fadeIn('fast');
+  });
+});
+
+function setUserToken(token) {
+  if (localStorage.getItem('useruid')==null) {
+    localStorage.setItem('useruid',token);
+  }
+  verifylogin()
+}
+
+$("#btnLogin").click(function(){
+  $.ajax
+  ({
+
+      url: 'https://' + window.location.host + '/api/v1/auth/',
+      data: {
+        "login": $("#txtLoginEmail").val(),
+        "password": $("#txtLoginPassword").val(),
+      },
+      type: 'post',
+      success: function(result)
+      {
+          setUserToken(result);
+      },
+      error: function(result) {
+          alert(result.responseText);
+      }
+  })
+});
+
+$("#btnValidateSignup").click(function(){
+  $("#alertCodeOk").hide();
+  $("#alertCodeError").hide();
+  $.ajax
+  ({
+
+      url: 'https://' + window.location.host + '/api/v1/registercode/',
+      data: {
+        "token": $("#txtCode").val(),
+      },
+      type: 'post',
+      success: function(result)
+      {
+          $("#finishSignup").show();
+          $("#validTokenBtn").hide();
+          $("#txtCode").prop('disabled', true);
+      },
+      error: function(result) {
+          $("#alertCodeError").show();
+      }
+  })
+});
+
+function validatePassword() {
+  if ($("#txtPassword").val() == $("#txtCPassword").val()) {
+    return true;
+  }
+  $("#alertRegister").show();
+  $("#alertRegister999").show();
+  $("#divPassword").attr("class","form-group has-error")
+  $("#divCPassword").attr("class","form-group has-error")
+  return false;
+}
+
+function resetAlertRegister() {
+    $("#alertRegister").hide();
+    $("#alertRegister10000").hide();
+    $("#alertRegister10001").hide();
+    $("#alertRegister10002").hide();
+    $("#alertRegister10003").hide();
+    $("#divUsername").attr("class","form-group")
+    $("#divEmail").attr("class","form-group")
+    $("#divPassword").attr("class","form-group")
+    $("#divCPassword").attr("class","form-group")
+}
+
+$("#btnFinishSignup").click(function(){
+  resetAlertRegister();
+  if (validatePassword()) {
+    $.ajax
+    ({
+
+        url: 'https://' + window.location.host + '/api/v1/register/',
+        data: {
+          "token": $("#txtCode").val(),
+          "username": $("#txtUsername").val(),
+          "email": $("#txtEmail").val(),
+          "password": $("#txtPassword").val(),
+        },
+        type: 'post',
+        success: function(result)
+        {
+
+        },
+        error: function(result, textStatus, code) {
+            $("#alertRegister").show();
+            var errorCode = String(result.responseText);
+            if (errorCode == 10000) {
+              $("#alertRegister10000").show();
+              $("#divUsername").attr("class","form-group has-error")
+            }
+            if (errorCode == "10001") {
+              $("#alertRegister10001").show();
+              $("#divEmail").attr("class","form-group has-error")
+            }
+            if (errorCode == "10002") {
+              $("#alertRegister10002").show();
+            }
+            if (errorCode == "10003") {
+              $("#alertRegister10003").show();
+            }
+        }
+    })
+  }
+});
+
+</script>
+</body>
+</html>
