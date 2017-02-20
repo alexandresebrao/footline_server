@@ -60,9 +60,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-if HEROKU:
-    MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware',]
-
 
 ROOT_URLCONF = 'footline.urls'
 
