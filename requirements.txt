@@ -1,3 +1,4 @@
+asgi-redis==1.0.0
 asgiref==1.0.0
 attrs==16.3.0
 autobahn==0.17.1
@@ -12,7 +13,9 @@ django-extensions==1.7.6
 djangorestframework==3.5.4
 gunicorn==19.6.0
 incremental==16.10.1
+msgpack-python==0.4.8
 psycopg2==2.6.2
+redis==2.10.5
 six==1.10.0
 Twisted==17.1.0
 txaio==2.6.1

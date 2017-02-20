@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['footline.herokuapp.com','localhost']
 
 try:
-    HEROKU = os.environ.get('HEROKU') == 1
+    HEROKU = os.environ.get('HEROKU') == "1"
 except:
     HEROKU = False
 
