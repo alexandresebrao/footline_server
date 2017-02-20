@@ -137,11 +137,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
-]
+if HEROKU:
+    STATIC_ROOT = os.path.join(BASE_DIR, "static"),
+else:
+    # Extra places for collectstatic to find static files.
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+        '/var/www/static/',
+    ]
 
 if HEROKU:
     CHANNEL_LAYERS = {
