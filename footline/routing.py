@@ -1,1 +1,7 @@
-channel_routing = []
+from channels.routing import route
+from api.consumers import ws_add, ws_disconnect
+
+channel_routing = [
+    route("websocket.connect", ws_add),
+    route("websocket.disconnect", ws_disconnect),
+]

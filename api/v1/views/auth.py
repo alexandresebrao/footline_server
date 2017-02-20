@@ -3,10 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.utils import timezone
-from core.models.user import UserAddon
 from api.v1.serializers.user import UserSerializer
-from django.conf import settings
 
 
 def getUser(login):
@@ -45,6 +42,3 @@ class AuthenticateView(APIView):
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
-
-    def put(self, request, *args, **kargs):
-        return Response('')

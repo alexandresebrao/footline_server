@@ -28,10 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['footline.herokuapp.com','localhost']
 
+try:
+    HEROKU = os.environ.get('HEROKU') == 1
+except:
+    HEROKU = False
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,8 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'channels',
-    'whitenoise.runserver_nostatic',
     'core.apps.CoreConfig',
     'frontend.apps.FrontendConfig',
     'django_extensions',
@@ -50,7 +53,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,6 +60,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+if HEROKU:
+    MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware',]
+
 
 ROOT_URLCONF = 'footline.urls'
 
@@ -77,7 +82,8 @@ TEMPLATES = [
     },
 ]
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+if HEROKU:
+    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 WSGI_APPLICATION = 'footline.wsgi.application'
 
@@ -132,16 +138,33 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
 
+if HEROKU:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "asgi_redis.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            },
+            "ROUTING": "footline.routing.channel_routing",
+        },
+    }
 
-# In settings.py
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "asgiref.inmemory.ChannelLayer",
-        "ROUTING": "footline.routing.channel_routing",
-    },
-}
+else:
+    # In settings.py
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "asgi_redis.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [("localhost", 6379)],
+            },
+            "ROUTING": "footline.routing.channel_routing",
+        },
+    }
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
