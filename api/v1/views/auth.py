@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from api.v1.serializers.user import UserSerializer
+from core.models.register import RegisterToken
+from rest_framework.decorators import api_view
 
 
 def getUser(login):
@@ -42,3 +44,17 @@ class AuthenticateView(APIView):
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def registertoken(request):
+    if request.method == 'GET':
+        data = request.data
+        token = data.get('token')
+        try:
+            RegisterToken.objects.get(token=token)
+            return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
