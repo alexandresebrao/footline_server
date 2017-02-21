@@ -46,15 +46,11 @@ class AuthenticateView(APIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
-def registertoken(request):
-    if request.method == 'GET':
-        data = request.data
-        token = data.get('token')
+class VerifyToken(APIView):
+    def get(self, request, token, *args, **kargs):
         try:
             RegisterToken.objects.get(token=token)
+
             return Response(status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-    else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
