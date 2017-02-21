@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from api.v1.serializers.user import UserSerializer
 from core.models.register import RegisterToken
-from rest_framework.decorators import api_view
 
 
 def getUser(login):
@@ -36,20 +35,36 @@ class AuthenticateView(APIView):
         username = data.get('username')
         password = data.get('password')
         email = data.get('email')
-        user = User(username=username, password=password, email=email)
-        serializer = UserSerializer(data=user)
-        if serializer.is_valid():
-            serializer.save()
-            return Response('', status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)
+        token = data.get('token')
+        try:
+            rt = RegisterToken.objects.get(token=token, use=False)
+            userdata = {
+                'username': username,
+                'password': password,
+                'email': email
+            }
+            user = UserSerializer(data=userdata)
+            if user.is_valid():
+                user.save()
+                rt.use = True
+                rt.save()
+                return Response(status=status.HTTP_201_CREATED)
+            else:
+                return Response(user.errors,
+                                status=status.HTTP_400_BAD_REQUEST)
+        except:
+            print("Aki")
+            print(data)
+            dictionary = {
+                'error': {'token': 'token não aceito'}
+            }
+            return Response(dictionary, status=status.HTTP_400_BAD_REQUEST)
 
 
 class VerifyToken(APIView):
-    def get(self, request, token, *args, **kargs):
+    def get(self, request, token=None, *args, **kargs):
         try:
-            RegisterToken.objects.get(token=token)
+            RegisterToken.objects.get(token=token, use=False)
 
             return Response(status=status.HTTP_200_OK)
         except:

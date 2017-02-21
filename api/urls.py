@@ -20,8 +20,10 @@ from api.admin import register
 
 urlpatterns = [
     url(r'^admin/registertoken/$', register.RegisterTokenAPIView.as_view()),
-    url(r'^admin/registertoken/(?P<pk>[0-9]+)/$', register.RegisterTokenDetail.as_view()),
-    url(r'^v1/auth/registertoken/(?P<token>\w+)/$', auth.VerifyToken.as_view()),
+    url(r'^admin/registertoken/(?P<pk>[0-9]+)/$',
+        register.RegisterTokenDetail.as_view()),
+    url(r'^v1/auth/registertoken/(?P<token>\w+)/$',
+        auth.VerifyToken.as_view()),
     url(r'^v1/auth/', auth.AuthenticateView.as_view()),
 
 ]
