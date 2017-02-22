@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'skae8in!zk+g1=vxn8p$(^ej#qn-p+0kjol@#dz@(s#1ge7*r-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = ['footline.herokuapp.com','localhost']
 
@@ -38,7 +38,9 @@ if HEROKU:
     CSRF_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    
+    DEBUG = False
+else:
+    DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [

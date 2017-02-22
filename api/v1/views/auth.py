@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from api.v1.serializers.user import UserSerializer
 from core.models.register import RegisterToken
+from core.models.user import UserAddon
 
 
 def getUser(login):
@@ -16,6 +17,31 @@ def getUser(login):
         except:
             return False
         return False
+
+
+class Login(APIView):
+    def post(self, request, *args, **kargs):
+        data = request.data
+        username = data.get('username')
+        password = data.get('password')
+        user = getUser(username)
+        if user:
+            user = authenticate(user, password)
+            if user is not None:
+                try:
+                    user.useraddon.get_token()
+                except:
+                    useradd = UserAddon()
+                    useradd.user = user
+                    useradd.save()
+
+                return Response(user.useraddon.get_token(),
+                                status=status.HTTP_200_OK)
+            else:
+                return Response(user.useraddon.get_token(),
+                                status=status.HTTP_401_UNAUTHORIZED)
+        return Response(user.useraddon.get_token(),
+                        status=status.HTTP_401_UNAUTHORIZED)
 
 
 class AuthenticateView(APIView):
