@@ -61,7 +61,12 @@ class AuthenticateView(APIView):
         username = data.get('username')
         password = data.get('password')
         email = data.get('email')
-        token = data.get('token')
+        try:
+            getUser(email)
+            return Response("{'email': 'Email já cadastrado'}",
+                            status=status.HTTP_400_BAD_REQUEST)
+        except:
+            token = data.get('token')
         try:
             rt = RegisterToken.objects.get(token=token, use=False)
             userdata = {
