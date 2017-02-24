@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'frontend.apps.FrontendConfig',
     'django_extensions',
     'corsheaders',
+    'whitenoise',
 ]
 
 MIDDLEWARE = [
@@ -142,8 +143,6 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-
 
 if HEROKU:
     CHANNEL_LAYERS = {
