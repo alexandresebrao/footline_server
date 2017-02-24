@@ -9,7 +9,7 @@ def ws_add(message):
 
 
 def ws_message(message):
-    token = message.content['text'].replace('token:', '')
+    token = message.content['text'].replace('tn:', '')
     try:
         useraddon = UserAddon.objects.get(token=token)
         useraddon.channel = message.reply_channel

@@ -83,8 +83,6 @@ class AuthenticateView(APIView):
                 return Response(user.errors,
                                 status=status.HTTP_400_BAD_REQUEST)
         except:
-            print("Aki")
-            print(data)
             dictionary = {
                 'error': {'token': 'token não aceito'}
             }
