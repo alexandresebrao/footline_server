@@ -14,7 +14,7 @@ def ws_message(message):
         useraddon = UserAddon.objects.get(token=token)
         useraddon.channel = message.reply_channel
         useraddon.save()
-        user = useraddon
+        user = useraddon.user
         Group("broadcast").add(message.reply_channel)
         Group("user-%s" % user.id).add(message.reply_channel)
         if user.is_staff:
