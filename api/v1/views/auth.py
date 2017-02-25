@@ -38,10 +38,8 @@ class LoginAPI(APIView):
                 return Response(user.useraddon.get_token(),
                                 status=status.HTTP_200_OK)
             else:
-                return Response(user.useraddon.get_token(),
-                                status=status.HTTP_401_UNAUTHORIZED)
-        return Response(user.useraddon.get_token(),
-                        status=status.HTTP_401_UNAUTHORIZED)
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 class RegisterUserAPI(APIView):
