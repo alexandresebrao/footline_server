@@ -19,7 +19,7 @@ def getUser(login):
         return False
 
 
-class Login(APIView):
+class LoginAPI(APIView):
     def post(self, request, *args, **kargs):
         data = request.data
         username = data.get('username')
@@ -44,18 +44,7 @@ class Login(APIView):
                         status=status.HTTP_401_UNAUTHORIZED)
 
 
-class AuthenticateView(APIView):
-    def get(self, request, *args, **kargs):
-        data = request.data
-        username = data.get('username')
-        password = data.get('password')
-        user = getUser(username)
-        if user:
-            user = authenticate(user, password)
-            user.get_token()
-        else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-
+class RegisterUserAPI(APIView):
     def post(self, request, *args, **kargs):
         data = request.data
         username = data.get('username')

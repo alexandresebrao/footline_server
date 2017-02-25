@@ -24,6 +24,6 @@ urlpatterns = [
         register.RegisterTokenDetail.as_view()),
     url(r'^v1/auth/registertoken/(?P<token>\w+)/$',
         auth.VerifyToken.as_view()),
-    url(r'^v1/auth/', auth.AuthenticateView.as_view()),
-
+    url(r'^v1/auth/register/', auth.RegisterUserAPI.as_view()),
+    url(r'^v1/auth/login/', auth.LoginAPI.as_view()),
 ]
