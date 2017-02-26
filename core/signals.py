@@ -3,6 +3,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from core.models.register import RegisterToken
 from core.models.user import UserAddon
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
 
 
 @receiver(post_save, sender=RegisterToken)
@@ -23,3 +25,9 @@ def send_user_status(sender, instance, **kwargs):
         text = "user:offline:%s" % instance.uuid
     data = {'text': text}
     Group("broadcast").send(data)
+
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)

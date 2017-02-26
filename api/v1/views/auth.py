@@ -6,36 +6,49 @@ from django.contrib.auth import authenticate
 from api.v1.serializers.user import UserSerializer
 from core.models.register import RegisterToken
 from core.models.user import UserAddon
+from rest_framework.authtoken.models import Token
+import json
 
 
 def getUser(login):
     try:
-        return User.objects.get(email=login)
+        username = User.objects.get(email=login).username
+        return username
     except:
         try:
-            return User.objects.get(username=login)
+            User.objects.get(username=login)
+            return login
         except:
             return False
         return False
 
 
 class LoginAPI(APIView):
+    def get(self, request, *args, **kargs):
+        try:
+            user = Token.objects.get(token=request.data.get('token')).user
+            serializer = UserSerializer(user, many=False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
     def post(self, request, *args, **kargs):
         data = request.data
+        print(data)
         username = data.get('username')
         password = data.get('password')
         user = getUser(username)
         if user:
-            user = authenticate(user, password)
+            user = authenticate(username=user, password=password)
             if user is not None:
                 try:
-                    user.useraddon.get_token()
+                    UserAddon.objects.get(user=user)
                 except:
                     useradd = UserAddon()
                     useradd.user = user
                     useradd.save()
-
-                return Response(user.useraddon.get_token(),
+                token, key = Token.objects.get_or_create(user=user)
+                return Response(json.dumps({'token': token.key}),
                                 status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
