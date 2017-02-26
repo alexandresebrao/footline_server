@@ -38,7 +38,7 @@ if HEROKU:
     CSRF_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    DEBUG = True
+    DEBUG = False
 else:
     DEBUG = True
 # Application definition
