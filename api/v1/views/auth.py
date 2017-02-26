@@ -34,7 +34,6 @@ class LoginAPI(APIView):
 
     def post(self, request, *args, **kargs):
         data = request.data
-        print(data)
         username = data.get('username')
         password = data.get('password')
         user = getUser(username)
@@ -86,7 +85,8 @@ class RegisterUserAPI(APIView):
             dictionary = {
                 'error': {'token': 'token não aceito'}
             }
-            return Response(dictionary, status=status.HTTP_400_BAD_REQUEST)
+            return Response(json.dumps(dictionary),
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
 class VerifyToken(APIView):
