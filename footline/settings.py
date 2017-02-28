@@ -26,7 +26,7 @@ SECRET_KEY = 'skae8in!zk+g1=vxn8p$(^ej#qn-p+0kjol@#dz@(s#1ge7*r-'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ['footline.herokuapp.com','localhost']
+ALLOWED_HOSTS = ['footline.herokuapp.com', 'localhost']
 
 try:
     HEROKU = os.environ.get('HEROKU') == '1'
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'frontend.apps.FrontendConfig',
     'django_extensions',
     'corsheaders',
+    'friendship',
 ]
 
 MIDDLEWARE = [
