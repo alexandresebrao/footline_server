@@ -45,7 +45,7 @@ class LoginAPI(APIView):
                     useradd.user = user
                     useradd.save()
                 token, key = Token.objects.get_or_create(user=user)
-                return Response(json.dumps({'token': token.key}),
+                return Response(token.key,
                                 status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
