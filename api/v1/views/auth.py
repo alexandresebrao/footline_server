@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -8,7 +8,6 @@ from core.models.register import RegisterToken
 from core.models.user import UserAddon
 from rest_framework.authtoken.models import Token
 import json
-
 
 def getUser(login):
     try:
@@ -25,11 +24,10 @@ def getUser(login):
 
 class LoginAPI(APIView):
     def get(self, request, *args, **kargs):
-        try:
-            user = Token.objects.get(token=request.data.get('token')).user
-            serializer = UserSerializer(user, many=False)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        except:
+        if request.user.is_authenticated():
+            user = UserSerializer(request.user)
+            return Response(user.data, status=status.HTTP_200_OK)
+        else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
     def post(self, request, *args, **kargs):

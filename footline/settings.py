@@ -149,7 +149,8 @@ if HEROKU:
         "default": {
             "BACKEND": "asgi_redis.RedisChannelLayer",
             "CONFIG": {
-                "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+                "hosts": [os.environ.get('REDIS_URL',
+                                         'redis://localhost:6379')],
             },
             "ROUTING": "footline.routing.channel_routing",
         },
@@ -168,7 +169,7 @@ else:
     }
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:3000',
+    'localhost:3000', 'localhost:3001',
 )
 
 REST_FRAMEWORK = {
