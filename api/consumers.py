@@ -1,6 +1,6 @@
 # In consumers.py
 from channels import Group
-from core.models.user import UserAddon
+from core.models.user import UserChannel
 from rest_framework.authtoken.models import Token
 
 
@@ -13,8 +13,8 @@ def ws_message(message):
     token = message.content['text'].replace('token:', '')
     try:
         user = Token.objects.get(key=token).user
-        user.useraddon.channel = message.reply_channel
         user.useraddon.save()
+        user.userchannel_set.create(user=user, channel=message.reply_channel)
         Group("broadcast").add(message.reply_channel)
         Group("user-%s" % user.id).add(message.reply_channel)
         if user.is_staff:
@@ -27,10 +27,9 @@ def ws_message(message):
 def ws_disconnect(message):
     channel = message.reply_channel
     try:
-        useraddon = UserAddon.objects.get(channel=channel)
-        useraddon.channel = ""
-        useraddon.save()
-        user = useraddon.user
+        uc = UserChannel.objects.get(channel=channel)
+        user = uc.user
+        uc.delete()
         Group("user-%s" % user.id).discard(channel)
         Group("boadcast").discard(channel)
     except:
