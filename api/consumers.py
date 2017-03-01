@@ -12,7 +12,7 @@ def ws_add(message):
 def ws_message(message):
     token = message.content['text'].replace('token:', '')
     try:
-        user = Token.objects.get(token=token).user
+        user = Token.objects.get(key=token).user
         user.useraddon.channel = message.reply_channel
         user.useraddon.save()
         Group("broadcast").add(message.reply_channel)
