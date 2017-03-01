@@ -1,4 +1,4 @@
-from rest_framework import status, permissions
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -8,6 +8,7 @@ from core.models.register import RegisterToken
 from core.models.user import UserAddon
 from rest_framework.authtoken.models import Token
 import json
+
 
 def getUser(login):
     try:
