@@ -9,7 +9,7 @@ class NewsAPIView(APIView):
     def get(request, page=None, *args, **kargs):
         if request.user.is_authenticated():
             news = News.objects.all()
-            serializer = NewsSerializer(data=news, many=True)
+            serializer = NewsSerializer(news, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
