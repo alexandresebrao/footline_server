@@ -6,7 +6,7 @@ from core.models.news import News
 
 
 class NewsAPIView(APIView):
-    def get(request, page=None, *args, **kargs):
+    def get(self, request, page=None, *args, **kargs):
         if request.user.is_authenticated():
             news = News.objects.all()
             serializer = NewsSerializer(news, many=True)
@@ -14,7 +14,7 @@ class NewsAPIView(APIView):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-    def post(request, *args, **kargs):
+    def post(self, request, *args, **kargs):
         if request.user.is_authenticated():
             if request.user.is_staff():
                 return Response(status=status.HTTP_201_CREATED)
